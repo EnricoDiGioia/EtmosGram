@@ -29,7 +29,7 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --maxw: 480px;
   --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --brand-font: 'Cinzel', Georgia, serif;
+  --brand-font: 'IM Fell English SC', Georgia, serif;
   color-scheme: light;
 }
 
@@ -261,13 +261,14 @@ code {
   align-items: center;
   gap: 7px;
   font-family: var(--brand-font);
-  font-weight: 700;
-  font-size: 19px;
-  letter-spacing: 0.04em;
+  font-weight: 400;
+  font-size: 21px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--text);
 }
 .wordmark--big {
-  font-size: 30px;
+  font-size: 34px;
   margin-top: 10px;
 }
 

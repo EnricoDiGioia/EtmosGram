@@ -8,7 +8,7 @@ export const TEXT_FONTS = [
   { id: 'caneta', label: 'Caneta', family: '"Pacifico", cursive', weight: 400, lh: 1.55 },
   { id: 'forte', label: 'Forte', family: '"Bebas Neue", Impact, sans-serif', weight: 400, lh: 1.1, upper: true },
   { id: 'elegante', label: 'Elegante', family: '"Playfair Display", Georgia, serif', weight: 700, italic: true, lh: 1.3 },
-  { id: 'arcana', label: 'Arcana', family: '"Cinzel", Georgia, serif', weight: 700, lh: 1.3 },
+  { id: 'arcana', label: 'Arcana', family: '"IM Fell English SC", Georgia, serif', weight: 400, lh: 1.25 },
 ];
 
 export function fontOf(id) {

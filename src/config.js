@@ -11,9 +11,9 @@
 
 const env = import.meta.env ?? {};
 
-export const SUPABASE_URL = env.VITE_SUPABASE_URL || 'https://vhiagccrtqxizserfdzm.supabase.co';
+export const SUPABASE_URL = env.VITE_SUPABASE_URL || 'https://hgvjwvyrkzqqvjqznfwh.supabase.co';
 
-export const SUPABASE_KEY = env.VITE_SUPABASE_KEY || 'sb_publishable_YvM0xKvUvhg3zlMzLyNpZw_i8jiyizN';
+export const SUPABASE_KEY = env.VITE_SUPABASE_KEY || 'sb_publishable_eFCsNsQh6oksXFwFa_0PHA_fYGrMxsL';
 
 // Nome que aparece no app
 export const APP_NAME = 'EtmosGram';

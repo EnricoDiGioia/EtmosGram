@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1530"/><stop offset="1" stop-color="#05070d"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#14b8a6" stop-opacity="0.38"/><stop offset="0.6" stop-color="#f59e0b" stop-opacity="0.08"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="g" x1="8" y1="40" x2="40" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0.1" stop-color="#2dd4bf"/><stop offset="0.55" stop-color="#fbbf24"/><stop offset="0.95" stop-color="#fb923c"/></linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <circle cx="32" cy="32" r="26.88" fill="url(#glow)"/>
+  <g transform="translate(32 32) scale(1.0) translate(-24 -23)">
+    <g filter="url(#blur)" opacity="0.8"><path d="M9 27.5 A16 16 0 1 1 12.7 33.3 L7.5 39.5 Z" fill="none" stroke="url(#g)" stroke-width="4.2" stroke-linejoin="round"/>
+    <path d="M24 12.5 Q25.3 20.7 33.5 22 Q25.3 23.3 24 31.5 Q22.7 23.3 14.5 22 Q22.7 20.7 24 12.5 Z" fill="url(#g)"/></g>
+    <path d="M9 27.5 A16 16 0 1 1 12.7 33.3 L7.5 39.5 Z" fill="none" stroke="url(#g)" stroke-width="4.2" stroke-linejoin="round"/>
+    <path d="M24 12.5 Q25.3 20.7 33.5 22 Q25.3 23.3 24 31.5 Q22.7 23.3 14.5 22 Q22.7 20.7 24 12.5 Z" fill="url(#g)"/>
+  </g>
+</svg>

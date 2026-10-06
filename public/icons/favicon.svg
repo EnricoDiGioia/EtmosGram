@@ -1,16 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1530"/><stop offset="1" stop-color="#05070d"/></linearGradient>
-    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#14b8a6" stop-opacity="0.38"/><stop offset="0.6" stop-color="#f59e0b" stop-opacity="0.08"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
-    <linearGradient id="g" x1="8" y1="40" x2="40" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0.1" stop-color="#2dd4bf"/><stop offset="0.55" stop-color="#fbbf24"/><stop offset="0.95" stop-color="#fb923c"/></linearGradient>
-    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#14b8a6" stop-opacity="0.34"/><stop offset="0.6" stop-color="#f59e0b" stop-opacity="0.07"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="g" x1="4" y1="44" x2="44" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2dd4bf"/><stop offset="0.55" stop-color="#fbbf24"/><stop offset="1" stop-color="#fb923c"/></linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
   </defs>
   <rect width="64" height="64" rx="14" fill="url(#bg)"/>
   <circle cx="32" cy="32" r="26.88" fill="url(#glow)"/>
-  <g transform="translate(32 32) scale(1.0) translate(-24 -23)">
-    <g filter="url(#blur)" opacity="0.8"><path d="M9 27.5 A16 16 0 1 1 12.7 33.3 L7.5 39.5 Z" fill="none" stroke="url(#g)" stroke-width="4.2" stroke-linejoin="round"/>
-    <path d="M24 12.5 Q25.3 20.7 33.5 22 Q25.3 23.3 24 31.5 Q22.7 23.3 14.5 22 Q22.7 20.7 24 12.5 Z" fill="url(#g)"/></g>
-    <path d="M9 27.5 A16 16 0 1 1 12.7 33.3 L7.5 39.5 Z" fill="none" stroke="url(#g)" stroke-width="4.2" stroke-linejoin="round"/>
-    <path d="M24 12.5 Q25.3 20.7 33.5 22 Q25.3 23.3 24 31.5 Q22.7 23.3 14.5 22 Q22.7 20.7 24 12.5 Z" fill="url(#g)"/>
+  <g transform="translate(32 32) scale(1.12) translate(-24 -24)">
+    <g filter="url(#blur)" opacity="0.5"><g fill="none" stroke="url(#g)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"><path d="M37.79 12.43 A18 18 0 1 1 30.16 7.09"/><path d="M12.5 24 Q24 14 35.5 24 Q24 34 12.5 24 Z"/></g><path d="M24 18.6 Q25.1 22.9 29.4 24 Q25.1 25.1 24 29.4 Q22.9 25.1 18.6 24 Q22.9 22.9 24 18.6 Z" fill="url(#g)"/></g>
+    <g fill="none" stroke="url(#g)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"><path d="M37.79 12.43 A18 18 0 1 1 30.16 7.09"/><path d="M12.5 24 Q24 14 35.5 24 Q24 34 12.5 24 Z"/></g><path d="M24 18.6 Q25.1 22.9 29.4 24 Q25.1 25.1 24 29.4 Q22.9 25.1 18.6 24 Q22.9 22.9 24 18.6 Z" fill="url(#g)"/>
   </g>
 </svg>

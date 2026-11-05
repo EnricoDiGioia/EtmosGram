@@ -7,10 +7,11 @@ import PostCard from '../components/PostCard';
 import StoriesTray from '../components/StoriesTray';
 import PullToRefresh from '../components/PullToRefresh';
 import InstallBanner from '../components/InstallBanner';
+import AccountSwitcher from '../components/AccountSwitcher';
 import CharacterRow, { FollowButton } from '../components/CharacterRow';
 import { useSession } from '../state/session';
 import { useUnread } from '../state/unread';
-import { useInfinite, useOnVisible, useAsync } from '../lib/hooks';
+import { useInfinite, useOnVisible, useAsync, useMedia } from '../lib/hooks';
 import { on } from '../lib/events';
 import { pageCache } from '../lib/storage';
 import * as api from '../lib/api';
@@ -26,17 +27,43 @@ export function usePostListEvents(setItems) {
   }, [setItems]);
 }
 
-function Suggestions() {
+function Suggestions({ limit = 12 }) {
   const { active } = useSession();
   const { data } = useAsync(`suggest:${active.id}`, () => api.suggested(active.id), [active.id]);
   if (!data?.length) return null;
   return (
     <section className="suggest">
       <h3 className="section-title">Sugestões para você</h3>
-      {data.slice(0, 12).map((c) => (
+      {data.slice(0, limit).map((c) => (
         <CharacterRow key={c.id} character={c} sub={c.follows_you ? 'Segue você' : c.name} right={<FollowButton character={c} />} />
       ))}
     </section>
+  );
+}
+
+// Coluna da direita (só em telas bem largas): quem está usando e sugestões
+const RAIL_QUERY = '(min-width: 1160px)';
+
+function HomeRail() {
+  const { active, characters } = useSession();
+  const [switchOpen, setSwitchOpen] = useState(false);
+  return (
+    <aside className="home-rail">
+      <CharacterRow
+        character={active}
+        size={48}
+        right={
+          characters.length > 1 && (
+            <button type="button" className="link-btn" onClick={() => setSwitchOpen(true)}>
+              Trocar
+            </button>
+          )
+        }
+      />
+      <Suggestions limit={6} />
+      <p className="home-rail__foot muted small">EtmosGram · feito para a mesa de Etmos</p>
+      <AccountSwitcher open={switchOpen} onClose={() => setSwitchOpen(false)} />
+    </aside>
   );
 }
 
@@ -45,6 +72,7 @@ export default function Home() {
   const { messages, notifications } = useUnread(active.id);
   const navigate = useNavigate();
   const [trayKey, setTrayKey] = useState(0);
+  const wide = useMedia(RAIL_QUERY);
   const key = `feed:${active.id}`;
   const feed = useInfinite(key, (before) => api.feed(active.id, before), { pageSize: 8 });
   usePostListEvents(feed.setItems);
@@ -114,12 +142,13 @@ export default function Home() {
           {feed.done && feed.items.length > 0 && (
             <div className="feed-end">
               <p className="muted">Você está em dia ✨</p>
-              <Suggestions />
+              {!wide && <Suggestions />}
             </div>
           )}
           <div ref={sentinel} />
         </div>
       </PullToRefresh>
+      {wide && <HomeRail />}
     </div>
   );
 }

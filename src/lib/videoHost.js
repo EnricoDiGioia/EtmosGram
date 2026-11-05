@@ -9,7 +9,7 @@
 // O som segue o botão de som do app (lib/music.js): o vídeo entra na mesma
 // fila das músicas, então nunca tocam dois sons juntos.
 import { useSyncExternalStore } from 'react';
-import { player, subscribe as subscribePlayer } from './music';
+import { getVolume, player, subscribe as subscribePlayer, subscribeVolume } from './music';
 import { loadVideo, markInUse } from './videoFiles';
 
 let el = null;
@@ -47,6 +47,7 @@ function element() {
   el.setAttribute('disableremoteplayback', '');
   el.disablePictureInPicture = true;
   el.muted = true;
+  el.volume = getVolume();
   el.preload = 'auto';
   el.addEventListener('loadeddata', () => set({ ready: true }));
   el.addEventListener('playing', () => set({ status: 'playing', ready: true }));
@@ -195,6 +196,10 @@ subscribePlayer(() => {
   if (want === !el.muted) return;
   el.muted = !want;
   if (want && el.paused && wantsPlay(r)) play(current, r);
+});
+
+subscribeVolume((v) => {
+  if (el) el.volume = v;
 });
 
 if (typeof document !== 'undefined') {

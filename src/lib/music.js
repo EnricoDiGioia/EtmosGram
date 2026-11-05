@@ -14,6 +14,7 @@ import { local } from './storage';
 
 export const CLIP_SECONDS = 15;
 const SOUND_KEY = 'etmos-sound';
+const VOLUME_KEY = 'etmos-volume';
 
 // ---------------------------------------------------------------------
 // Dados da música (vêm do banco, então conferimos antes de usar)
@@ -108,6 +109,32 @@ let playSeq = 0;
 let unlocked = false;
 let resumeOnShow = false;
 let snapshot = { key: null, status: 'idle', soundOn };
+
+// Volume (0 a 1), mexido pela barrinha que aparece no computador. Vale para a
+// música e para o som dos vídeos. (No iPhone o volume é só o dos botões do
+// aparelho; lá a barrinha nem aparece.)
+const clampVolume = (v) => (Number.isFinite(v) ? Math.min(1, Math.max(0.02, v)) : 1);
+let volume = clampVolume(parseFloat(local.get(VOLUME_KEY)));
+const volumeSubs = new Set();
+
+export function getVolume() {
+  return volume;
+}
+export function setVolume(v) {
+  const next = clampVolume(v);
+  if (next === volume) return;
+  volume = next;
+  local.set(VOLUME_KEY, String(Math.round(volume * 100) / 100));
+  if (el) el.volume = volume;
+  volumeSubs.forEach((fn) => fn(volume));
+}
+export function subscribeVolume(fn) {
+  volumeSubs.add(fn);
+  return () => volumeSubs.delete(fn);
+}
+export function useVolume() {
+  return useSyncExternalStore(subscribeVolume, getVolume, getVolume);
+}
 const subs = new Set();
 
 function publish() {
@@ -126,6 +153,7 @@ function audio() {
   if (el) return el;
   el = new Audio();
   el.preload = 'auto';
+  el.volume = volume;
   el.addEventListener('timeupdate', keepInsideClip);
   el.addEventListener('ended', onEnded);
   el.addEventListener('playing', () => current && setStatus('playing'));

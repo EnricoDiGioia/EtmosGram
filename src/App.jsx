@@ -184,9 +184,19 @@ function PushBridge() {
   return null;
 }
 
+// No computador cada tela tem a sua largura: grades de fotos ficam largas,
+// o feed fica numa coluna e os reels ocupam a altura toda
+function layoutOf(path) {
+  if (path === '/') return 'feed';
+  if (path === '/reels') return 'full';
+  if (path === '/explorar' || path.startsWith('/tag/') || /^\/u\/[^/]+\/?$/.test(path)) return 'wide';
+  return 'normal';
+}
+
 function Shell() {
+  const { pathname } = useLocation();
   return (
-    <div className="app">
+    <div className={`app app--${layoutOf(pathname)}`}>
       <RouteErrorBoundary>
         <RouteView />
       </RouteErrorBoundary>

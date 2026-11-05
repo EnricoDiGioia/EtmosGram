@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Music2, Volume2, VolumeX, ExternalLink } from 'lucide-react';
 import { Sheet } from './ui';
-import { artworkUrl, clipOf, musicLabel, player, usePlayer } from '../lib/music';
+import { artworkUrl, clipOf, musicLabel, player, setVolume, usePlayer, useVolume } from '../lib/music';
 
 // Toca a música do post enquanto ele estiver bem visível na tela
 export function useMusicInView(ref, key, music) {
@@ -48,7 +48,47 @@ export function toggleSound(playerKey, s) {
   }
 }
 
-// Botão de som (alto-falante) sobre a foto ou no story
+const stop = (e) => e.stopPropagation();
+
+// Barrinha de volume (só no computador: o CSS esconde em telas de toque).
+// Arrastar até o fim desliga o som; mexer com o som desligado liga de novo.
+export function VolumeSlider({ playerKey, s, className = '' }) {
+  const volume = useVolume();
+  const mine = s.key === playerKey;
+  const blocked = mine && (s.status === 'blocked' || s.status === 'error');
+  const on = s.soundOn && !blocked;
+  const value = on ? volume : 0;
+  const change = (e) => {
+    const v = Number(e.target.value);
+    if (v <= 0.01) {
+      if (s.soundOn) player.setSound(false);
+      return;
+    }
+    setVolume(v);
+    if (!s.soundOn || blocked || !mine) toggleSound(playerKey, s);
+  };
+  return (
+    <input
+      type="range"
+      className={`vol ${className}`}
+      min="0"
+      max="1"
+      step="0.01"
+      value={value}
+      aria-label="Volume"
+      aria-valuetext={`${Math.round(value * 100)}%`}
+      style={{ '--vol': `${value * 100}%` }}
+      onChange={change}
+      onClick={stop}
+      onPointerDown={stop}
+      onPointerUp={stop}
+      onKeyDown={stop}
+    />
+  );
+}
+
+// Botão de som (alto-falante) sobre a foto ou no story; no computador, passar
+// o mouse por cima abre a barrinha de volume ao lado
 export function SoundButton({ playerKey, className = '', size = 14, light = false }) {
   const s = usePlayer();
   const mine = s.key === playerKey;
@@ -59,18 +99,19 @@ export function SoundButton({ playerKey, className = '', size = 14, light = fals
     toggleSound(playerKey, s);
   };
   return (
-    <button
-      type="button"
-      data-sound-btn=""
-      className={`sound-btn ${light ? 'sound-btn--light' : ''} ${className}`}
-      aria-label={on ? 'Desligar o som' : 'Ligar o som'}
-      aria-pressed={on}
-      onClick={click}
-      onPointerDown={(e) => e.stopPropagation()}
-      onPointerUp={(e) => e.stopPropagation()}
-    >
-      {on ? <Volume2 size={size} strokeWidth={2.2} /> : <VolumeX size={size} strokeWidth={2.2} />}
-    </button>
+    <span data-sound-btn="" className={`sound-ctl ${light ? 'sound-ctl--light' : ''} ${className}`} onClick={stop} onPointerDown={stop} onPointerUp={stop}>
+      <VolumeSlider playerKey={playerKey} s={s} />
+      <button
+        type="button"
+        data-sound-btn=""
+        className={`sound-btn ${light ? 'sound-btn--light' : ''}`}
+        aria-label={on ? 'Desligar o som' : 'Ligar o som'}
+        aria-pressed={on}
+        onClick={click}
+      >
+        {on ? <Volume2 size={size} strokeWidth={2.2} /> : <VolumeX size={size} strokeWidth={2.2} />}
+      </button>
+    </span>
   );
 }
 

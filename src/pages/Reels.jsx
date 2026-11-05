@@ -4,7 +4,7 @@ import { Heart, MessageCircle, Send, Camera, Clapperboard, Volume2, VolumeX, Pau
 import Avatar from '../components/Avatar';
 import RichText from '../components/RichText';
 import ShareSheet from '../components/ShareSheet';
-import { MusicInfoSheet, MusicLine, toggleSound } from '../components/Music';
+import { MusicInfoSheet, MusicLine, SoundButton, toggleSound } from '../components/Music';
 import { HostedVideo } from '../components/Video';
 import { Handle, Spinner, EmptyState, ErrorBox } from '../components/ui';
 import { useSession } from '../state/session';
@@ -133,6 +133,9 @@ function ReelSlide({ post, active }) {
         </button>
       )}
 
+      {/* no computador: som e volume no canto do vídeo */}
+      {soundKey && <SoundButton playerKey={soundKey} light size={22} className="reel__sound" />}
+
       <div className="reel__side">
         <button type="button" className={`reel__act ${post.liked ? 'is-liked' : ''}`} aria-label={post.liked ? 'Descurtir' : 'Curtir'} aria-pressed={post.liked} onClick={() => setLiked(!post.liked)}>
           <Heart size={28} strokeWidth={post.liked ? 0 : 1.9} fill={post.liked ? 'currentColor' : 'none'} />
@@ -149,7 +152,7 @@ function ReelSlide({ post, active }) {
           <button
             type="button"
             data-sound-btn=""
-            className="reel__act"
+            className="reel__act reel__act--sound"
             aria-label={soundOn ? 'Desligar o som' : 'Ligar o som'}
             aria-pressed={soundOn}
             onClick={() => toggleSound(soundKey, ps)}

@@ -4,7 +4,7 @@
 
 Rede social no estilo Instagram para os personagens de uma campanha de [Etmos](https://baldegalactico.com.br/jogo/etmos/), o RPG em que a magia é linguagem. Cada jogador cria seus personagens (e o mestre, os NPCs) e eles publicam fotos, vídeos, stories e reels, conversam no Direct e seguem uns aos outros dentro do mundo da campanha.
 
-É um PWA: roda no navegador e se instala na tela inicial do iPhone e do Android como um app, sem loja. Funciona inteiro no plano grátis do Supabase e do GitHub Pages.
+É um PWA: roda no navegador e se instala na tela inicial do iPhone e do Android como um app, sem loja. No computador a tela se adapta: barra lateral, grades largas e reels em pé no meio da tela. Funciona inteiro no plano grátis do Supabase e do GitHub Pages.
 
 **No ar:** https://enricodigioia.github.io/EtmosGram/ (o cadastro pede um código de convite)
 
@@ -26,6 +26,7 @@ Feito a partir do [FargusGram](https://github.com/EnricoDiGioia/FargusGram): o c
 
 **Vídeo**
 - Vídeos de até 15 s, cortados e comprimidos no próprio aparelho (MP4 H.264/AAC, 540 px, cerca de 1 a 1,5 MB)
+- No computador, uma barrinha de volume ao lado do botão de som (posts, stories, reels e notas), guardada no aparelho
 
 **Conversas e avisos**
 - Direct com conversas individuais e em grupo, fotos, figurinhas, respostas a mensagens e reações
